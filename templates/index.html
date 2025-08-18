@@ -4,209 +4,7 @@
   <meta charset="UTF-8">
   <title>Générateur de Citations</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Effet de particules en arrière-plan */
-    body::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                  radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
-      animation: float 20s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-20px) rotate(180deg); }
-    }
-
-    .container {
-      position: relative;
-      z-index: 1;
-      max-width: 600px;
-      width: 100%;
-    }
-
-    .header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .title {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: white;
-      margin-bottom: 10px;
-      letter-spacing: -0.02em;
-    }
-
-    .subtitle {
-      font-size: 1.1rem;
-      color: rgba(255, 255, 255, 0.8);
-      font-weight: 300;
-    }
-
-    .quote-card {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(20px);
-      border-radius: 24px;
-      padding: 40px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1),
-                  0 1px 3px rgba(0, 0, 0, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transform: translateY(0);
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    .quote-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15),
-                  0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-
-    .quote-icon {
-      position: absolute;
-      top: -15px;
-      left: 30px;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    .quote-text {
-      font-size: 1.3rem;
-      line-height: 1.6;
-      color: #2d3748;
-      margin-bottom: 25px;
-      font-weight: 400;
-      font-style: italic;
-      position: relative;
-    }
-
-    .quote-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 30px;
-    }
-
-    .quote-author {
-      font-weight: 600;
-      color: #4a5568;
-      font-size: 1rem;
-    }
-
-    .quote-source {
-      font-weight: 400;
-      color: #718096;
-      font-size: 0.9rem;
-    }
-
-    .new-quote-btn {
-      width: 100%;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border: none;
-      border-radius: 16px;
-      padding: 16px 24px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .new-quote-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s;
-    }
-
-    .new-quote-btn:hover::before {
-      left: 100%;
-    }
-
-    .new-quote-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-    }
-
-    .new-quote-btn:active {
-      transform: translateY(0);
-    }
-
-    .loading {
-      opacity: 0.7;
-      pointer-events: none;
-    }
-
-    .fade-in {
-      animation: fadeIn 0.5s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .title {
-        font-size: 2rem;
-      }
-      
-      .quote-card {
-        padding: 30px 25px;
-        margin: 0 10px;
-      }
-      
-      .quote-text {
-        font-size: 1.1rem;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <div class="container">
@@ -217,57 +15,20 @@
 
     <div class="quote-card" id="quote-card">
       <div class="quote-icon">"</div>
-      
       <div class="quote-text" id="quote-text">
         « {{ citation.quote }} »
       </div>
-      
       <div class="quote-footer" id="quote-footer" style="display: block;">
         <div>
           <div class="quote-author" id="quote-author">{{ citation.character }}</div>
           <div class="quote-source" id="quote-source">{{ citation.anime }}</div>
         </div>
       </div>
-      
       <button class="new-quote-btn" id="new-quote-btn">
         ✨ Nouvelle Citation
       </button>
     </div>
   </div>
-
-  <script>
-    const quoteText = document.getElementById('quote-text');
-    const quoteAuthor = document.getElementById('quote-author');
-    const quoteSource = document.getElementById('quote-source');
-    const quoteFooter = document.getElementById('quote-footer');
-    const newQuoteBtn = document.getElementById('new-quote-btn');
-    const quoteCard = document.getElementById('quote-card');
-
-    newQuoteBtn.addEventListener('click', function() {
-      newQuoteBtn.classList.add('loading');
-      newQuoteBtn.textContent = '⏳ Chargement...';
-
-      fetch('/api/citation')
-        .then(response => response.json())
-        .then(data => {
-          quoteCard.classList.remove('fade-in');
-          setTimeout(() => {
-            quoteText.textContent = `« ${data.quote} »`;
-            quoteAuthor.textContent = data.character;
-            quoteSource.textContent = data.anime;
-            quoteFooter.style.display = 'block';
-            quoteCard.classList.add('fade-in');
-            newQuoteBtn.classList.remove('loading');
-            newQuoteBtn.textContent = '✨ Nouvelle Citation';
-          }, 100);
-        })
-        .catch(error => {
-          quoteText.textContent = "Erreur lors du chargement...";
-          quoteFooter.style.display = 'none';
-          newQuoteBtn.classList.remove('loading');
-          newQuoteBtn.textContent = '✨ Nouvelle Citation';
-        });
-    });
-  </script>
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
 </body>
 </html>
