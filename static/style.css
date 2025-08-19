@@ -209,19 +209,21 @@ body::before {
   }
 }
 
-/* Responsive optimisé pour mobiles */
+/* Responsive FIXÉ pour mobiles - Solution anti-espaces cassés */
 @media (max-width: 480px) {
   body {
     min-height: 100vh;
-    min-height: 100dvh; /* Support des nouveaux navigateurs */
+    min-height: 100dvh;
     padding: 10px;
     align-items: flex-start;
     padding-top: 20px;
+    overflow-x: hidden;
   }
   
   .container {
     max-width: 100%;
     width: 100%;
+    overflow-x: hidden;
   }
   
   .header {
@@ -241,61 +243,86 @@ body::before {
   }
   
   .quote-card {
-    padding: 25px 20px;
+    padding: 20px 15px;
     border-radius: 16px;
     margin: 0;
     width: 100%;
-    overflow: hidden; /* Empêche le débordement */
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
   }
   
   .quote-icon {
-    left: 15px;
-    top: -12px;
-    width: 32px;
-    height: 32px;
-    font-size: 16px;
+    left: 10px;
+    top: -10px;
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
   }
   
+  /* SOLUTION ANTI-ESPACES CASSÉS */
   .quote-text {
-    font-size: 1.1rem;
-    line-height: 1.5;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
     margin-bottom: 20px;
+    
+    /* Propriétés critiques pour éviter les espaces cassés */
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    
+    /* Gestion du texte */
+    white-space: normal;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    white-space: pre-wrap;
-    word-break: break-word;
-    -moz-hyphens: auto;
-    -webkit-hyphens: auto;
-    hyphens: auto;
-    max-width: 100%; /* Force le respect de la largeur */
+    word-break: normal;
+    
+    /* Gestion des espaces */
+    text-align: left;
+    
+    /* Éviter les débordements */
+    overflow: hidden;
+    display: block;
+    
+    /* Forcer le respect des limites */
+    min-width: 0;
+    flex-shrink: 1;
   }
   
   .quote-footer {
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 5px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
+    width: 100%;
   }
   
   .quote-author {
-    font-size: 0.95rem;
-    max-width: 100%;
-    overflow-wrap: break-word;
+    font-size: 0.9rem;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   
   .quote-source {
-    font-size: 0.85rem;
-    max-width: 100%;
-    overflow-wrap: break-word;
+    font-size: 0.8rem;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   
   .new-quote-btn {
-    padding: 14px 20px;
-    font-size: 0.95rem;
+    padding: 12px 16px;
+    font-size: 0.9rem;
     border-radius: 12px;
-    /* Désactiver les effets hover sur mobile */
+    width: 100%;
+    box-sizing: border-box;
   }
   
+  /* Désactiver les effets hover sur mobile */
   .new-quote-btn:hover {
     transform: none;
     box-shadow: none;
@@ -308,39 +335,18 @@ body::before {
   }
 }
 
-/* Responsive pour très petits écrans */
+/* Extra small phones */
 @media (max-width: 360px) {
-  body {
-    padding: 8px;
+  .quote-card {
+    padding: 18px 12px;
+  }
+  
+  .quote-text {
+    font-size: 0.95rem !important;
+    line-height: 1.4 !important;
   }
   
   .title {
     font-size: 1.6rem;
-  }
-  
-  .subtitle {
-    font-size: 0.9rem;
-  }
-  
-  .quote-card {
-    padding: 20px 15px;
-  }
-  
-  .quote-text {
-    font-size: 1rem;
-    line-height: 1.4;
-  }
-  
-  .quote-author {
-    font-size: 0.9rem;
-  }
-  
-  .quote-source {
-    font-size: 0.8rem;
-  }
-  
-  .new-quote-btn {
-    padding: 12px 16px;
-    font-size: 0.9rem;
   }
 }
