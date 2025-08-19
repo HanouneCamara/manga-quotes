@@ -245,6 +245,7 @@ body::before {
     border-radius: 16px;
     margin: 0;
     width: 100%;
+    overflow: hidden; /* Empêche le débordement */
   }
   
   .quote-icon {
@@ -261,6 +262,12 @@ body::before {
     margin-bottom: 20px;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: break-word;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    max-width: 100%; /* Force le respect de la largeur */
   }
   
   .quote-footer {
@@ -272,10 +279,14 @@ body::before {
   
   .quote-author {
     font-size: 0.95rem;
+    max-width: 100%;
+    overflow-wrap: break-word;
   }
   
   .quote-source {
     font-size: 0.85rem;
+    max-width: 100%;
+    overflow-wrap: break-word;
   }
   
   .new-quote-btn {

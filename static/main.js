@@ -14,9 +14,15 @@ newQuoteBtn.addEventListener('click', function() {
     .then(data => {
       quoteCard.classList.remove('fade-in');
       setTimeout(() => {
-        quoteText.textContent = `« ${data.quote} »`;
-        quoteAuthor.textContent = data.character;
-        quoteSource.textContent = data.anime;
+        // Nettoyer le texte et éviter les espaces cassés
+        const cleanQuote = data.quote.trim().replace(/\s+/g, ' ');
+        const cleanCharacter = data.character.trim().replace(/\s+/g, ' ');
+        const cleanAnime = data.anime.trim().replace(/\s+/g, ' ');
+        
+        quoteText.innerHTML = `« ${cleanQuote} »`;
+        quoteAuthor.textContent = cleanCharacter;
+        quoteSource.textContent = cleanAnime;
+        
         quoteFooter.style.display = 'block';
         quoteCard.classList.add('fade-in');
         newQuoteBtn.classList.remove('loading');
