@@ -185,76 +185,151 @@ body::before {
   }
 }
 
-/* Responsive */
+/* Responsive pour tablettes */
 @media (max-width: 768px) {
+  body {
+    padding: 15px;
+  }
+  
   .title {
     font-size: 2rem;
   }
   
+  .subtitle {
+    font-size: 1rem;
+  }
+  
   .quote-card {
     padding: 30px 25px;
-    margin: 0 10px;
+    border-radius: 20px;
+  }
+  
+  .quote-text {
+    font-size: 1.2rem;
+  }
+}
+
+/* Responsive optimisé pour mobiles */
+@media (max-width: 480px) {
+  body {
+    min-height: 100vh;
+    min-height: 100dvh; /* Support des nouveaux navigateurs */
+    padding: 10px;
+    align-items: flex-start;
+    padding-top: 20px;
+  }
+  
+  .container {
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .header {
+    margin-bottom: 25px;
+    padding: 0 5px;
+  }
+  
+  .title {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  
+  .subtitle {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  
+  .quote-card {
+    padding: 25px 20px;
+    border-radius: 16px;
+    margin: 0;
+    width: 100%;
+  }
+  
+  .quote-icon {
+    left: 15px;
+    top: -12px;
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
   }
   
   .quote-text {
     font-size: 1.1rem;
-  }
-}
-
-/* Responsive amélioré pour mobile */
-@media (max-width: 480px) {
-  body {
-    padding: 0;
-    min-height: 100dvh;
-    height: 100vh;
-    display: block;
-    overflow-x: hidden;
-  }
-  .container {
-    max-width: 100%;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-  }
-  .quote-card {
-    padding: 14px 4px;
-    margin: 0;
-    border-radius: 12px;
-    box-sizing: border-box;
-    width: 100%;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    word-wrap: break-word;
     overflow-wrap: break-word;
   }
-  .header {
-    margin-bottom: 18px;
-    padding: 0 4px;
-  }
-  .title {
-    font-size: 1.3rem;
-    margin-bottom: 6px;
-  }
-  .subtitle {
-    font-size: 0.95rem;
-  }
-  .quote-icon {
-    left: 10px;
-    top: -10px;
-    width: 30px;
-    height: 30px;
-    font-size: 14px;
-  }
-  .quote-text {
-    font-size: 1rem;
-    margin-bottom: 15px;
-  }
+  
   .quote-footer {
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom: 18px;
+    gap: 5px;
+    margin-bottom: 25px;
   }
-  .new-quote-btn {
-    padding: 12px 10px;
+  
+  .quote-author {
     font-size: 0.95rem;
-    border-radius: 10px;
+  }
+  
+  .quote-source {
+    font-size: 0.85rem;
+  }
+  
+  .new-quote-btn {
+    padding: 14px 20px;
+    font-size: 0.95rem;
+    border-radius: 12px;
+    /* Désactiver les effets hover sur mobile */
+  }
+  
+  .new-quote-btn:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  
+  .quote-card:hover {
+    transform: none;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1),
+                0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* Responsive pour très petits écrans */
+@media (max-width: 360px) {
+  body {
+    padding: 8px;
+  }
+  
+  .title {
+    font-size: 1.6rem;
+  }
+  
+  .subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .quote-card {
+    padding: 20px 15px;
+  }
+  
+  .quote-text {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  
+  .quote-author {
+    font-size: 0.9rem;
+  }
+  
+  .quote-source {
+    font-size: 0.8rem;
+  }
+  
+  .new-quote-btn {
+    padding: 12px 16px;
+    font-size: 0.9rem;
   }
 }
