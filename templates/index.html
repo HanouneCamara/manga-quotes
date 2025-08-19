@@ -1,39 +1,40 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta name="description" content="Manga Quotes - citations inspirantes de vos personnages préférés de manga." />
-  <meta name="keywords" content="manga, citations, anime, quotes, naruto, one piece, itachi, luffy" />
-  <meta name="google-site-verification" content="-nTj0p4WsZtMKVRsAUcQIy61_Pga9YdDcB9nFIUOYP8" />
-  <meta name="author" content="Hanoune Camara" />
-  <meta charset="UTF-8">
-  <title>Générateur de Citations</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.ico') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Manga Quotes - citations inspirantes de vos personnages préférés de manga." />
+    <meta name="keywords" content="manga, citations, anime, quotes, naruto, one piece, itachi, luffy" />
+    <meta name="author" content="Hanoune Camara" />
+    <title>Citations Manga Inspirantes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1 class="title">Citations Inspirantes</h1>
-      <p class="subtitle">Découvrez la sagesse des personnages d'anime</p>
-    </div>
-
-    <div class="quote-card" id="quote-card">
-      <div class="quote-icon">"</div>
-      <div class="quote-text" id="quote-text">
-        « {{ citation.quote }} »
-      </div>
-      <div class="quote-footer" id="quote-footer" style="display: block;">
-        <div>
-          <div class="quote-author" id="quote-author">{{ citation.character }}</div>
-          <div class="quote-source" id="quote-source">{{ citation.anime }}</div>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Citations Inspirantes</h1>
+            <p class="subtitle">Découvrez la sagesse des personnages d'anime</p>
         </div>
-      </div>
-      <button class="new-quote-btn" id="new-quote-btn">
-        ✨ Nouvelle Citation
-      </button>
+
+        <div class="quote-card" id="quote-card">
+            <div class="quote-icon">"</div>
+            <div class="quote-content">
+                <div class="quote-text" id="quote-text">
+                    « {{ citation.quote if citation else "Cliquez sur le bouton pour découvrir une citation inspirante !" }} »
+                </div>
+            </div>
+            <div class="quote-footer" id="quote-footer" style="display: {% if citation %}flex{% else %}none{% endif %};">
+                <div class="quote-meta">
+                    <div class="quote-author" id="quote-author">{% if citation %}{{ citation.character }}{% endif %}</div>
+                    <div class="quote-source" id="quote-source">{% if citation %}{{ citation.anime }}{% endif %}</div>
+                </div>
+            </div>
+            <button class="new-quote-btn" id="new-quote-btn">
+                ✨ Nouvelle Citation
+            </button>
+        </div>
     </div>
-  </div>
-  <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
 </body>
 </html>
