@@ -7,32 +7,13 @@
 body {
   font-family: 'Inter', sans-serif;
   min-height: 100vh;
+  /* Fond statique simple et moderne */
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
   position: relative;
-  overflow: hidden;
-}
-
-/* Effet de particules en arrière-plan */
-body::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
-  animation: float 20s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(180deg); }
 }
 
 .container {
@@ -63,22 +44,13 @@ body::before {
 
 .quote-card {
   background: rgba(255, 255, 255, 0.95);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   border-radius: 24px;
   padding: 40px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1),
-              0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  transform: translateY(0);
-  transition: all 0.3s ease;
   position: relative;
-}
-
-.quote-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15),
-              0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .quote-icon {
@@ -104,7 +76,6 @@ body::before {
   margin-bottom: 25px;
   font-weight: 400;
   font-style: italic;
-  position: relative;
 }
 
 .quote-footer {
@@ -136,29 +107,11 @@ body::before {
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.new-quote-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
-}
-
-.new-quote-btn:hover::before {
-  left: 100%;
+  transition: transform 0.2s ease;
 }
 
 .new-quote-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
 }
 
 .new-quote-btn:active {
@@ -171,18 +124,12 @@ body::before {
 }
 
 .fade-in {
-  animation: fadeIn 0.5s ease-out;
+  animation: fadeIn 0.3s ease-out;
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Responsive pour tablettes */
@@ -195,10 +142,6 @@ body::before {
     font-size: 2rem;
   }
   
-  .subtitle {
-    font-size: 1rem;
-  }
-  
   .quote-card {
     padding: 30px 25px;
     border-radius: 20px;
@@ -209,144 +152,123 @@ body::before {
   }
 }
 
-/* Responsive FIXÉ pour mobiles - Solution anti-espaces cassés */
+/* MOBILE - Solution définitive contre les espaces cassés */
 @media (max-width: 480px) {
   body {
     min-height: 100vh;
-    min-height: 100dvh;
-    padding: 10px;
+    padding: 15px;
     align-items: flex-start;
-    padding-top: 20px;
-    overflow-x: hidden;
+    padding-top: 30px;
   }
   
   .container {
-    max-width: 100%;
     width: 100%;
-    overflow-x: hidden;
+    max-width: 100%;
   }
   
   .header {
     margin-bottom: 25px;
-    padding: 0 5px;
   }
   
   .title {
-    font-size: 1.8rem;
-    margin-bottom: 8px;
+    font-size: 1.7rem;
     line-height: 1.2;
+    margin-bottom: 8px;
   }
   
   .subtitle {
     font-size: 0.95rem;
-    line-height: 1.4;
+  }
+  
+  .quote-card {
+    padding: 25px 18px;
+    border-radius: 18px;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .quote-icon {
+    left: 12px;
+    top: -12px;
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+  }
+  
+  /* SOLUTION ULTIME pour les espaces cassés */
+  .quote-text {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    
+    /* Layout strict */
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    
+    /* Gestion du texte mobile */
+    word-spacing: normal;
+    letter-spacing: normal;
+    text-align: left;
+    
+    /* Anti-cassure */
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    
+    /* Forçage de la largeur */
+    box-sizing: border-box;
+    min-width: 0;
+  }
+  
+  .quote-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    margin-bottom: 22px;
+  }
+  
+  .quote-author {
+    font-size: 0.92rem;
+    line-height: 1.3;
+  }
+  
+  .quote-source {
+    font-size: 0.82rem;
+    line-height: 1.3;
+  }
+  
+  .new-quote-btn {
+    padding: 14px 18px;
+    font-size: 0.95rem;
+    border-radius: 14px;
+  }
+  
+  /* Désactiver hover sur mobile */
+  .new-quote-btn:hover {
+    transform: none;
+  }
+}
+
+/* Très petits écrans */
+@media (max-width: 360px) {
+  body {
+    padding: 10px;
   }
   
   .quote-card {
     padding: 20px 15px;
-    border-radius: 16px;
-    margin: 0;
-    width: 100%;
-    box-sizing: border-box;
-    overflow: hidden;
-    position: relative;
-  }
-  
-  .quote-icon {
-    left: 10px;
-    top: -10px;
-    width: 28px;
-    height: 28px;
-    font-size: 14px;
-  }
-  
-  /* SOLUTION ANTI-ESPACES CASSÉS */
-  .quote-text {
-    font-size: 1rem !important;
-    line-height: 1.5 !important;
-    margin-bottom: 20px;
-    
-    /* Propriétés critiques pour éviter les espaces cassés */
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    
-    /* Gestion du texte */
-    white-space: normal;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    word-break: normal;
-    
-    /* Gestion des espaces */
-    text-align: left;
-    
-    /* Éviter les débordements */
-    overflow: hidden;
-    display: block;
-    
-    /* Forcer le respect des limites */
-    min-width: 0;
-    flex-shrink: 1;
-  }
-  
-  .quote-footer {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-    margin-bottom: 20px;
-    width: 100%;
-  }
-  
-  .quote-author {
-    font-size: 0.9rem;
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  
-  .quote-source {
-    font-size: 0.8rem;
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  
-  .new-quote-btn {
-    padding: 12px 16px;
-    font-size: 0.9rem;
-    border-radius: 12px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  /* Désactiver les effets hover sur mobile */
-  .new-quote-btn:hover {
-    transform: none;
-    box-shadow: none;
-  }
-  
-  .quote-card:hover {
-    transform: none;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1),
-                0 1px 3px rgba(0, 0, 0, 0.05);
-  }
-}
-
-/* Extra small phones */
-@media (max-width: 360px) {
-  .quote-card {
-    padding: 18px 12px;
   }
   
   .quote-text {
-    font-size: 0.95rem !important;
-    line-height: 1.4 !important;
+    font-size: 1rem;
+    line-height: 1.45;
   }
   
   .title {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
 }

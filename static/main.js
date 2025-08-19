@@ -5,50 +5,51 @@ const quoteFooter = document.getElementById('quote-footer');
 const newQuoteBtn = document.getElementById('new-quote-btn');
 const quoteCard = document.getElementById('quote-card');
 
-// Fonction pour nettoyer le texte et éviter les espaces cassés
-function cleanText(text) {
+// Fonction de nettoyage ultime
+function fixText(text) {
   if (!text) return '';
   
   return text
-    .trim() // Supprime les espaces en début/fin
-    .replace(/\s+/g, ' ') // Remplace les espaces multiples par un seul
-    .replace(/\u00A0/g, ' ') // Remplace les espaces insécables
-    .replace(/[\u2000-\u200B]/g, ' ') // Remplace les différents types d'espaces Unicode
-    .replace(/\s+/g, ' ') // Double vérification
+    .replace(/\s+/g, ' ')           // Espaces multiples → 1 espace
+    .replace(/\u00A0/g, ' ')        // Espaces insécables
+    .replace(/\u2000-\u200F/g, ' ') // Espaces Unicode
+    .replace(/\u2028-\u2029/g, ' ') // Séparateurs de ligne
     .trim();
 }
 
 newQuoteBtn.addEventListener('click', function() {
+  // État de chargement
   newQuoteBtn.classList.add('loading');
   newQuoteBtn.textContent = '⏳ Chargement...';
 
   fetch('/api/citation')
     .then(response => response.json())
     .then(data => {
+      // Supprime l'animation précédente
       quoteCard.classList.remove('fade-in');
       
+      // Pause courte pour le changement
       setTimeout(() => {
-        // Nettoyage approfondi des données
-        const cleanQuote = cleanText(data.quote);
-        const cleanCharacter = cleanText(data.character);
-        const cleanAnime = cleanText(data.anime);
+        // Nettoyage et affichage
+        const cleanQuote = fixText(data.quote);
+        const cleanCharacter = fixText(data.character);
+        const cleanAnime = fixText(data.anime);
         
-        // Mise à jour du DOM avec le texte nettoyé
-        quoteText.textContent = `« ${cleanQuote} »`;
+        // Mise à jour directe sans formatage complexe
+        quoteText.innerHTML = '« ' + cleanQuote + ' »';
         quoteAuthor.textContent = cleanCharacter;
         quoteSource.textContent = cleanAnime;
         
-        // Force un reflow pour s'assurer que le layout est correct
-        quoteCard.offsetHeight;
-        
+        // Affichage
         quoteFooter.style.display = 'block';
         quoteCard.classList.add('fade-in');
+        
+        // Restaurer le bouton
         newQuoteBtn.classList.remove('loading');
         newQuoteBtn.textContent = '✨ Nouvelle Citation';
-      }, 100);
+      }, 50);
     })
     .catch(error => {
-      console.error('Erreur:', error);
       quoteText.textContent = "Erreur lors du chargement...";
       quoteFooter.style.display = 'none';
       newQuoteBtn.classList.remove('loading');
@@ -56,19 +57,16 @@ newQuoteBtn.addEventListener('click', function() {
     });
 });
 
-// Ajout d'un événement pour nettoyer le texte initial au chargement de la page
-document.addEventListener('DOMContentLoaded', function() {
+// Nettoyage au chargement initial
+window.addEventListener('load', function() {
   if (quoteText.textContent) {
-    const initialText = quoteText.textContent.replace(/[«»]/g, '').trim();
-    const cleanedText = cleanText(initialText);
-    quoteText.textContent = `« ${cleanedText} »`;
+    const currentText = quoteText.textContent.replace(/[«»]/g, '').trim();
+    quoteText.innerHTML = '« ' + fixText(currentText) + ' »';
   }
-  
   if (quoteAuthor.textContent) {
-    quoteAuthor.textContent = cleanText(quoteAuthor.textContent);
+    quoteAuthor.textContent = fixText(quoteAuthor.textContent);
   }
-  
   if (quoteSource.textContent) {
-    quoteSource.textContent = cleanText(quoteSource.textContent);
+    quoteSource.textContent = fixText(quoteSource.textContent);
   }
 });
